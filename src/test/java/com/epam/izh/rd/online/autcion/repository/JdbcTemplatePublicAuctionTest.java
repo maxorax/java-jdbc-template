@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -228,6 +229,11 @@ class JdbcTemplatePublicAuctionTest {
 
     @SneakyThrows
     private LocalDate transformDate(String string) {
-        return new Date(DATE_FORMAT.parse(string).getTime()).toLocalDate();
+        try {
+            return new Date(DATE_FORMAT.parse(string).getTime()).toLocalDate();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
